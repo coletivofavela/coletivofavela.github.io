@@ -23,18 +23,47 @@
         padding: 0;
         width: 100%;
         background-color: #f2f2f2;
-      }   
+        }   
+    
+        div.cartodb-popup.v2 div.cartodb-popup-content-wrapper {
+        background: black;
+      }
+      
+      div.cartodb-popup.v2:before {
+        border-top-color: black;
+      }
+      
+      div.cartodb-popup p {
+        color: white;
+      }
        
       </style>
 
-    <script>
+    <script type="infowindow/html" id="infowindow_template">
+      <div class="cartodb-popup v2">
+        <a href="#close" class="cartodb-popup-close-button close">x</a>
+         <div class="cartodb-popup-content-wrapper">
+           <div class="cartodb-popup-content">
+             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/eAFG6aQTwPk" frameborder="0" allowfullscreen></iframe>
+           </div>
+         </div>
+         <div class="cartodb-popup-tip-container"></div>
+      </div>
+    </script>
+      
+      <script>
       var dataLayer;
       $(document).ready(function () {
        
-        cartodb.createVis('map', 'https://alexajensen.cartodb.com/api/v2/viz/af6ae970-186d-11e6-90db-0e787de82d45/viz.json')
+        cartodb.createVis('map', 'https://alexajensen.cartodb.com/api/v2/viz/f031931e-1b79-11e6-bc00-0e31c9be1b51/viz.json',{
+            cartodb_logo: false, mapTitle: 'Government Interventions'
+        })
           .done(function (vis, layers) {
             dataLayer = layers[1].getSubLayer(0);
+            dataLayer.infowindow.set('template', $('#infowindow_template').html()); dataLayer.infowindow.set('sanitizeTemplate', 'false');
           });
+          
+          
 
         $('.MCMV-button').click(function () {
           var sql = "SELECT * FROM government_intervention1 WHERE project_ty = 'Minha Casa Minha Vida'";
@@ -62,7 +91,7 @@
       
   </head>
   <body class = homepage>
-      <div id="header" class="con">
+      <div id="header" class="map">
 			<div id="nav-wrapper"> 
 				<!-- Nav -->
 				<nav id="nav">
@@ -95,10 +124,10 @@
         <i><center>MAP OF GOVERNMENT-INITIATED FAVELA INTERVENTIONS</center></i><center>The distinction between “informal” and “formal” tends to have an active influence on the ways in which modern urban planning and policy is employed and, oftentimes, these definitions emerge as a governmental tool. Shown here are five examples of government-initiated favela interventions that have taken place over the years, but it is important to note that these interventions, while some have been quite successful, like Favela Bairro, all deal with visibility on some level.<br><br>
         <li>Infrastructural Visibility</li>
 	   <li>Military Visibility</li> 
-	<li>Or they deal with the removal of visibility</li></center>
+	<li>Or they deal with the removal of visibility</li></center><br>
           
           
-            <div class = "row">         
+                     
                
 				    <center><button class="MCMV-button">MCMV</button>
 					
@@ -111,7 +140,7 @@
                    
 				   <button class="Bairro-button">Favela Bairro</button></center>
 					
-<br><br></div> </div><br><br><br><br><br><br><br><br><br><br><br>
+<br><br></div> <br><br><br><br><br><br><br><br><br><br><br><br>
       <div id="tweet" class="con">
 			<div class="container">
 				<section>
